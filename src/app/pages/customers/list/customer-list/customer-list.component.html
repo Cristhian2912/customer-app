@@ -1,0 +1,77 @@
+<div class="mb-2">
+    <div class="row">
+        <div class="col-lg-3 col-md-6  mb-2">
+            <form (submit)="handleSubmitSearch($event)">
+                <input type="search" name="valueToSearch" class="form-control" [(ngModel)]="valueToSearch" placeholder="search">
+            </form>
+        </div>
+        <div class="col-lg-9 col-md-6  mb-2">
+            <button class="btn btn-danger mr-2" (click)="onClickCreate()">
+                <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+                Create new
+            </button>
+            <button class="btn btn-outline-secondary" (click)="onClickReload()">
+                <fa-icon [icon]="['fas', 'redo']"></fa-icon>
+            </button>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-sm table-hover my-0"  style="min-width: 1000px;">
+            <thead>
+                <tr style="cursor: pointer;">
+                    <th *ngFor="let field of fieldOrderTypes" (click)="handleClickOrder(field.field)">
+                        # {{field.field}}
+                        <fa-icon
+                            [icon]="['fas', 'long-arrow-alt-up']"
+                            [class]="(field.orderType!='desc'&&field.active?'':'text-secondary')"
+                        ></fa-icon>
+                        <fa-icon
+                            [icon]="['fas', 'long-arrow-alt-down']"
+                            [class]="(field.orderType=='desc'&&field.active?'':'text-secondary')"
+                        ></fa-icon>
+                    </th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of list">
+                    <td>{{item.id}}</td>
+                    <td>{{item.firstName}}</td>
+                    <td>{{item.lastName}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.phoneNumber}}</td>
+                    <td>
+                        <button class="btn btn-outline-secondary btn-sm" (click)="onClickEdit(item)">
+                            <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="pt-2">
+        <div class="btn-group btn-group-toggle mr-3">
+            <div class="pr-2">
+                <button class="btn btn-danger" (click)="onClickPrevious()" [disabled]="previousPage==null">
+                    <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon>
+                    Previous
+                </button>
+            </div>
+            <div class="pr-2">
+                <Select
+                    name="currentPage"
+                    class="form-control form-control-md"
+                    value="{{currentPage}}"
+                    (change)="handleOnChangeSelect($event)"
+                >
+                    <option value="{{page}}" *ngFor="let page of getArrayOfPages()">{{page}}</option>
+                </Select>
+            </div>
+            <button class="btn btn-danger" (click)="onClickNext()" [disabled]="nextPage==null">
+                Next
+                <fa-icon [icon]="['fas', 'chevron-right']"></fa-icon>
+            </button>
+        </div>
+        <p class="d-inline-block mb-0">showing {{list.length}} of {{totalResults}} resulst from total of {{totalItems}} records</p>
+    </div>
+</div>

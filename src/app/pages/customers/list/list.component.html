@@ -1,0 +1,23 @@
+<app-customer-list
+    [list]="customersResponse.data"
+    [previousPage]="customersResponse.previousPage??null"
+    [nextPage]="customersResponse.nextPage??null"
+    [totalPages]="customersResponse.totalPages"
+    [currentPage]="customersResponse.currentPage"
+    [totalResults]="customersResponse.totalResults"
+    [totalItems]="customersResponse.totalItems"
+    [onSubmitSearch]="handleSubmitSearch.bind(this)"
+    [onClickOrderColumn]="handleOrderColumn.bind(this)"
+    [onClickPrevious]="handleClickPrevious.bind(this)"
+    [onClickNext]="handleClickNext.bind(this)"
+    [onGoToPage]="handleGoToPage.bind(this)"
+    [onClickEdit]="handleClickEdit.bind(this)"
+    [onClickCreate]="handleClickCreate.bind(this)"
+    [onClickReload]="handleClickReload.bind(this)"
+></app-customer-list>
+<app-simple-alert
+    [open]="notification.open"
+    [type]="notification.type"
+    [message]="notification.message"
+>
+</app-simple-alert>
